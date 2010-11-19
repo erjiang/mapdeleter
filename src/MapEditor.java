@@ -66,6 +66,54 @@ public class MapEditor extends JLabel implements Scrollable, ActionListener, Mou
         addMouseListener(this);
     }
 
+	public enum OS {
+		WINDOWS, WINDOWS_7, UNIX, MAC, OTHER
+	};
+	
+	private String findMinecraftDataFolder() {
+		String mcPath = "";
+
+		OS os = identifyOS();
+		switch (os) {
+		case WINDOWS:
+		case WINDOWS_7:
+			mcPath = System.getenv("APPDATA") + "\\.minecraft";
+			break;
+		case UNIX:
+			mcPath = System.getProperty("user.home") + "/.minecraft";
+			break;
+		case MAC:
+			mcPath = System.getProperty("user.home") + "/Library/Application Support/minecraft";
+			break;
+		default:
+			break;
+		}
+
+		return mcPath;
+	}
+
+	public OS identifyOS() {
+		String os = null;
+		String version = null;
+
+		os = System.getProperty("os.name").toLowerCase();
+		version = System.getProperty("os.version");
+
+		if (os.indexOf("win") > -1) {
+			if (version.equals("6.1"))
+				return OS.WINDOWS_7;
+			if (version.equals("6.0")) {
+				return OS.WINDOWS;
+			}
+			return OS.WINDOWS;
+		}
+		if ((os.indexOf("nix") > -1) || (os.indexOf("nux") > -1))
+			return OS.UNIX;
+		if (os.indexOf("mac") > -1) {
+			return OS.MAC;
+		}
+		return OS.OTHER;
+	}
     /*
      * Takes care of all the the buttons in the MapDeleter.
      * (non-Javadoc)
@@ -75,7 +123,7 @@ public class MapEditor extends JLabel implements Scrollable, ActionListener, Mou
 	public void actionPerformed(ActionEvent e) {
     	//Open a world.
     	if(e.getActionCommand().compareTo("Open (World Directory)") == 0){
-			JFileChooser getDirToOpen = new JFileChooser();
+			JFileChooser getDirToOpen = new JFileChooser(findMinecraftDataFolder() + "/saves/");
 			getDirToOpen.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int returnVal = getDirToOpen.showOpenDialog(this);
 			if(returnVal == JFileChooser.APPROVE_OPTION){

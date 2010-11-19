@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -7,10 +8,19 @@ import java.util.LinkedList;
  *
  */
 public class MapChunkSelected {
+
 	private boolean[][] selectedBlocks = new boolean[16][16];
 	private boolean chunkSelected;
 	private boolean blockSelected;
 	private int numSelectedBlocks;
+	
+	@Override
+	public String toString() {
+		return "MapChunkSelected [blockSelected=" + blockSelected
+				+ ", chunkSelected=" + chunkSelected + ", numSelectedBlocks="
+				+ numSelectedBlocks + ", selectedBlocks="
+				+ Arrays.toString(selectedBlocks) + "]";
+	}
 	
 	/**
 	 * Creates the default map chunk.  Nothing is selected.

@@ -88,4 +88,17 @@ public class Blocks {
 	public static final byte ICE = 79;	
 	public static final byte SNOW_BLOCK  = 80;	
 	public static final byte CACTI = 81;
+	public static final byte CLAY = 82;
+	public static final byte REED = 83;
+	public static final byte JUKEBOX = 84;
+	public static final byte FENCE = 85;
+	public static final byte PUMPKIN = 86;
+	public static final byte NETHERSTONE = 87;
+	public static final byte SLOWSAND = 88;
+	public static final byte LIGHTSTONE = 89;
+	public static final byte PORTAL = 90;
+	public static final byte JACK_O_LANTERN = 91;
+	
 }
+
+
