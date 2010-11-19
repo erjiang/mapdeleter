@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,7 +25,7 @@ import javax.swing.JToggleButton;
  * @author Charles Stebbins
  *
  */
-public class MapDeleter extends JFrame{
+public class MapDeleter extends JFrame implements ActionListener{
 
 	/**
 	 * The generated serialVersion
@@ -77,7 +79,7 @@ public class MapDeleter extends JFrame{
 		fileMenuOpen.addActionListener(this.mapEdit);
 		fileMenuSave.addActionListener(this.mapEdit);
 		fileMenuSavePNG.addActionListener(this.mapEdit);
-		fileMenuExit.addActionListener(this.mapEdit);
+		fileMenuExit.addActionListener(this);
 		
 		// Level Data Menu Bar - Holds options for editing the level.
 		// TODO - Implement.
@@ -240,7 +242,21 @@ public class MapDeleter extends JFrame{
         frame.pack();
     }
     
-    /**
+    /*
+     * This actionPerformed listener handles events meant for the JFrame,
+     * rather than events meant for MapEditor ("the brains").
+     */
+    @Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand() == "Exit") {
+			System.exit(0);
+		}
+		else {
+			System.err.println("[WARN] MapDeleter JFrame received unknown action: "+e.getActionCommand());
+		}
+	}
+
+	/**
      * Sets the progress bar to be filled with a blue bar to a given value.
      * @param value The new value of the progress bar in percent.  50 is 50% of the progress bar filled.
      * @param s - The text to overlay the progress bar.
