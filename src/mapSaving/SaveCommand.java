@@ -86,4 +86,15 @@ public class SaveCommand {
 	public Coordinates getCoordinates(){
 		return this.coord;
 	}
+	@Override
+	public String toString() {
+		String c = "";
+		if (command==COPY_COMMAND) c="COPY";
+		else if (command==DELETE_COMMAND) c="DELETE";
+		else if (command==ADD_BLOCKS_COMMAND) c="ADD_BLOCKS";
+		else if (command==CHANGE_HEIGHT_COMMAND) c="CHANGE_HEIGHT";
+		
+		return "SaveCommand [command=" + c + ", chunkA=" + chunkA + ", chunkB=" + chunkB
+				+ ", coord=" + coord + "]";
+	}
 }
