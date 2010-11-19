@@ -83,7 +83,9 @@ public class MapContainer {
 	 */
 	private void traverseDir(File dir){
 		//Found a directory, TRAVERSE!!!!!
-    	if(dir.isDirectory()){
+		// QUICKFIX: Do not transverse Nether Dir
+		String d = dir.getAbsolutePath();
+    	if(dir.isDirectory() && ! dir.getName().equals("DIM-1")){
     		for(File file : dir.listFiles()){
     			traverseDir(file);
     		}
@@ -240,15 +242,19 @@ public class MapContainer {
 			case Blocks.RED_MUSHROOM:
 				break;
 			case Blocks.GOLD_BLOCK:
+				returnColor = new Color(246, 212, 45);
 				break;
 			case Blocks.IRON_BLOCK:
+				returnColor = new Color(211, 211, 211);
 				break;
 			case Blocks.DOUBLE_STAIR:
+				returnColor = new Color(168, 168, 168);
 				break;
 			case Blocks.STAIR:
 				returnColor = new Color(26, 26, 26);
 				break;
 			case Blocks.BRICK:
+				returnColor = new Color(113, 55, 39);
 				break;
 			case Blocks.TNT:
 				break;
@@ -280,6 +286,7 @@ public class MapContainer {
 			case Blocks.CROPS:
 				break;
 			case Blocks.SOIL:
+				returnColor = new Color(127, 85, 51);
 				break;
 			case Blocks.FURNACE:
 				break;
@@ -323,8 +330,33 @@ public class MapContainer {
 				returnColor = new Color(55, 133, 211);
 				break;
 			case Blocks.SNOW_BLOCK:
+				returnColor = new Color(227, 243, 243);
 				break;
 			case Blocks.CACTI:
+				break;
+			case Blocks.CLAY:
+				returnColor = new Color(161, 166, 182);
+				break;
+			case Blocks.REED:
+				break;
+			case Blocks.PUMPKIN:
+				break;
+			case Blocks.NETHERSTONE:
+				returnColor = new Color(115, 60, 60);
+				break;
+			case Blocks.SLOWSAND:
+				returnColor = new Color(103, 79, 65);
+				break;
+			case Blocks.LIGHTSTONE:
+				returnColor = new Color(249, 212, 156);
+				break;
+			case Blocks.PORTAL:
+				returnColor = new Color(45, 45, 45);
+				break;
+			case Blocks.JACK_O_LANTERN:
+				break;
+			default: 
+				System.out.println("Not found color for block " + blockCode);
 				break;
 		}
 		return returnColor;
@@ -577,8 +609,10 @@ public class MapContainer {
 	 * @param b True to select the chunk, false otherwise.
 	 */
 	public void setSelected(int z, int x, boolean b) {
-		this.mapChunkSelected[z][x].setChunkSelected(b);
-		
+		if (z >= 0 && z < mapChunkSelected.length && 
+		    x >= 0 && x < this.mapChunkSelected[0].length) {	
+			this.mapChunkSelected[z][x].setChunkSelected(b);
+		}
 	}
 
 	/**
