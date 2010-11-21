@@ -691,6 +691,13 @@ public class MapEditor extends JLabel implements Scrollable, ActionListener, Mou
     				this.repaintChunk(zSmall - 1, x);
     		}
     	}
+    	else {
+			JOptionPane
+					.showMessageDialog(
+							this,
+							"Copied chunks' shape and size does not fit onto target selection.",
+							"Pasting", JOptionPane.ERROR_MESSAGE);
+    	}
 	}
 	
 	/**
