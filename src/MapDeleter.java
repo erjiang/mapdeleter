@@ -17,6 +17,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
 
 /**
  * The main class for the Map Deleter Project.
@@ -53,6 +54,15 @@ public class MapDeleter extends JFrame implements ActionListener{
 	 */
 	public MapDeleter(String title){
 		super(title);
+		
+		// get a native look
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			// oh well, we tried
+		}
+		this.setLocationByPlatform(true);
+		
 		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(new Dimension(695, 602));
 
