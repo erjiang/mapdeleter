@@ -79,8 +79,7 @@ public class MapChunkExtended {
 		levelMap.put("TerrainPopulated", this.terrainPopulated);
 		levelMap.put("TileEntities", this.tileEntities);
 		levelMap.put("HeightMap", new ByteArrayTag("HeightMap", this.heightMap));
-		//levelMap.put("BlockLight", this.blockLight);
-		levelMap.put("BlockLight", new ByteArrayTag("BlockLight", new byte[0]));
+		levelMap.put("BlockLight", this.blockLight);
 		levelMap.put("Blocks", new ByteArrayTag("Blocks", this.blocks));
 		levelMap.put("SkyLight", this.skyLight);
 		CompoundTag levelTag = new CompoundTag("Level", levelMap);
@@ -266,6 +265,7 @@ public class MapChunkExtended {
 		int z = coordinates.getZ();
 		int replaceY = 0;
 		int replaceWithY = 0;
+        int blockHeight = getHeightMap()[(z * 16 + x)];
 		this.blocks[z * 128 + x * 2048] = Blocks.ADMINIUM;
 		System.out.println(raiseBlockHeight + " RAISING BLOCKS++++++++++++++++++++++++++++++++");
 		this.heightMap[z * 16 + x] = (byte) (this.heightMap[z * 16 + x] + raiseBlockHeight);

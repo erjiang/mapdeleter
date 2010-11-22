@@ -70,9 +70,10 @@ public class MapSaver {
 			}
 			//If it's another command add it to a map 
 			//containing the chunk to save and the data to save.
-			if(tempCo.getCommand() == SaveCommand.ADD_BLOCKS_COMMAND ||
-				tempCo.getCommand() == SaveCommand.CHANGE_HEIGHT_COMMAND){
-				
+			if(tempCo.getCommand() != SaveCommand.ADD_BLOCKS_COMMAND ||
+				tempCo.getCommand() != SaveCommand.CHANGE_HEIGHT_COMMAND){
+				continue;
+            }
 				// Just to make sure that we have a place to add the commands.
 				if(this.mapChunksE == null){
 					this.mapChunksE = new HashMap<String, LinkedList<SaveCommand>>();
@@ -88,7 +89,7 @@ public class MapSaver {
 					this.mapChunksE.get(tempCo.getChunkA()).add(tempCo);
 				}
 			}
-		}
+		
 		this.saveCurrentChunks();
 		this.delete();
 		this.mapDel.progressBarComplete("Finished Saving");
@@ -102,8 +103,12 @@ public class MapSaver {
 		if(mapChunksE == null)
 			return;
 		Set<String> keySet = mapChunksE.keySet();
+		int newProg = keySet.size();
+		int newCurrProg = 0;
 		Iterator<String> iter = keySet.iterator();
 		while(iter.hasNext()){
+			newCurrProg++;
+			this.mapDel.setProgressBarValue((int)(newCurrProg / newProg * 100.0F), "Saving Map - Saving Chunks");
 			try {
 				String chunkPath = iter.next();
 
