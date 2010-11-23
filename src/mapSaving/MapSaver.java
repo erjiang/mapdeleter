@@ -70,25 +70,24 @@ public class MapSaver {
 			}
 			//If it's another command add it to a map 
 			//containing the chunk to save and the data to save.
-			if(tempCo.getCommand() != SaveCommand.ADD_BLOCKS_COMMAND ||
+			if(tempCo.getCommand() != SaveCommand.ADD_BLOCKS_COMMAND &&
 				tempCo.getCommand() != SaveCommand.CHANGE_HEIGHT_COMMAND){
 				continue;
             }
-				// Just to make sure that we have a place to add the commands.
-				if(this.mapChunksE == null){
-					this.mapChunksE = new HashMap<String, LinkedList<SaveCommand>>();
-				}
-				// If a reference to the chunk path is not in the map, add it.
-				//  Also add the SaveCommand to the list in the map.
-				if(!this.mapChunksE.containsKey(tempCo.getChunkA())){
-					LinkedList<SaveCommand> tempList = new LinkedList<SaveCommand>();
-					tempList.add(tempCo);
-					this.mapChunksE.put(tempCo.getChunkA(), tempList);
-				}
-				else{
-					this.mapChunksE.get(tempCo.getChunkA()).add(tempCo);
-				}
+			// Just to make sure that we have a place to add the commands.
+			if(this.mapChunksE == null){
+				this.mapChunksE = new HashMap<String, LinkedList<SaveCommand>>();
 			}
+			// If a reference to the chunk path is not in the map, add it.
+			//  Also add the SaveCommand to the list in the map.
+			if(!this.mapChunksE.containsKey(tempCo.getChunkA())){
+				LinkedList<SaveCommand> tempList = new LinkedList<SaveCommand>();
+				tempList.add(tempCo);
+				this.mapChunksE.put(tempCo.getChunkA(), tempList);
+			} else {
+				this.mapChunksE.get(tempCo.getChunkA()).add(tempCo);
+			}
+		}
 		
 		this.saveCurrentChunks();
 		this.delete();
